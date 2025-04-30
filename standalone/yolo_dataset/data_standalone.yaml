@@ -1,0 +1,8 @@
+
+
+train: C:\Users\robbe\Desktop\VUB\master\thesis_github\standalone\yolo_dataset\train
+val: C:\Users\robbe\Desktop\VUB\master\thesis_github\standalone\yolo_dataset\test_combined
+test: C:\Users\robbe\Desktop\VUB\master\thesis_github\standalone\yolo_dataset\test_combined
+
+nc: 22
+names: ['bench', 'bicycle', 'bus', 'bus_stop', 'car', 'crutch', 'curb', 'dog', 'fire_hydrant', 'motorcycle', 'person', 'pole', 'spherical_roadblock', 'stairs', 'stop_sign', 'street_light', 'traffic_light', 'train', 'tree', 'truck', 'warning_column', 'waste_container']
