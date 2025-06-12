@@ -42,7 +42,7 @@ This project develops a complete FL pipeline, including model design, client-ser
 
 1. Clone the repository:
    ```powershell
-   git clone <repository-url>
+   git clone https://github.com/Vlaeminksken/thesis_github
    ```
 2. Install required Python packages (see individual script requirements).
 3. Run scripts as needed for your experiments.
