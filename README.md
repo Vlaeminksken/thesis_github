@@ -34,7 +34,7 @@ This project develops a complete FL pipeline, including model design, client-ser
 - `standalone/`: Standalone scripts and models for YOLO and CNN experiments.
 
 ## Datasets
-
+- **MNIST Dataset:** [https://git-disl.github.io/GTDLBench/datasets/mnist_datasets/](https://git-disl.github.io/GTDLBench/datasets/mnist_datasets/)
 - **Outdoor Obstacle Detection (OOD) Dataset:** [https://universe.roboflow.com/fpn/ood-pbnro](https://universe.roboflow.com/fpn/ood-pbnro)
 - **Visually Impaired (VI) Dataset:** [https://universe.roboflow.com/all-mix/visually-impaired-dataset](https://universe.roboflow.com/all-mix/visually-impaired-dataset)
 
@@ -53,6 +53,7 @@ This project develops a complete FL pipeline, including model design, client-ser
 - TensorFlow, PyTorch, and other dependencies (see script headers or requirements files)
 - Jetson Nano DNN image ([Qengineering/Jetson-Nano-image](https://github.com/Qengineering/Jetson-Nano-image) recommended)
 
+
 ## Practical Setup Notes
 
 - **Jetson Nano DNN Image:** Instead of manually installing JetPack SDK, TensorFlow, and CUDA, use the Jetson Nano DNN image. This approach saves significant setup time and ensures compatibility, especially with CUDA since conflicts can/will happen.
@@ -63,6 +64,18 @@ This project develops a complete FL pipeline, including model design, client-ser
 - **Python Package Versions:** The repository's Python scripts do not specify exact package versions. On Jetson Nano DNN, scripts generally run without additional updates (except possibly NumPy) as of June 2025. On Windows 11, use the latest package versions via pip.
 - **Data Format:** The tf.record format is used for importing images from RoboFlow.
 - **Configuration Files:** Configuration files (e.g., `configX.py`) are imported as modules (e.g., `import configX as cfg`) in the main scripts. This allows flexible configuration management for different experiments.
+
+## Set up virtual environment
+It is recommended to use a virtual environment to ensure packages are installed correctly. This ensures the portability of the code across different machines. The `uv` package manager works well for this purpose, and is also suggested by the Marimo project. 
+
+See the [uv installation guide](https://github.com/astral-sh/uv?tab=readme-ov-file#installation).
+
+```
+uv venv                              # setup virtual environment (venv) with uv
+.venv\Scripts\activate               # activate venv (Windows)
+#source .venv/bin/activate                  # activate venv (Linux/OSX)
+uv pip install -r requirements.txt   # install marimo environment & dependencies
+```
 
 ## Usage
 
