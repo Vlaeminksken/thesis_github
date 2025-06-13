@@ -23,20 +23,36 @@ This project develops a complete FL pipeline, including model design, client-ser
 
 ## Project Structure
 
+- `MNIST/`: Contains scripts and data for MNIST experiments. The dataset is fully loaded and partitioned on the Jetson Nano, with partitioning handled in `client.py`. `client2.py` provides additional testing utilities. The MNIST dataset is used exclusively within this folder, making it a good starting point for understanding the project workflow. 
+- `Object_detect+utils/`: Contains scripts and utilities for both centralized and federated learning experiments, as well as configuration files.
+    - **Centralised learning (`Centralised learning/`):** Scripts for centralized training, including `centralized_OOD.py`, `centralized_VIS.py`, and `TF_OOD.py`. These are designed for PC use (can run on Jetson Nano, but are slow with the full dataset). The dataset is reclassified into "movable" (e.g., car) and "non-movable" (e.g., trash bin, standstill) object classes, plus a background class. TFRecord files (not included in the repo) are required as input.
+        - **OOD:** Base code, used for the learning of the Outdoor Obstacle Detection dataset. Other files in this folder, are modified from this.
+        - **VIS:** Similar structure to centralized learning, but uses a different dataset, preprocessing, and class definitions.
+        - **TF_ODD:** Implements transfer learning with fine-tuning. The main difference from centralized OOD scripts is in lines 99–184.
+    - **Configuration Files (`Configs/`):** `config1.py` is adapted for federated learning; `TF_config.py` may not be used in the final project.
+    - **Federated learning (`Federated learning/`):** Contains scripts for federated learning experiments. Note: `psutil` may need to be installed separately to monitor energy usage during training (as referenced in the thesis, pg 28), alongside `tegrastats`.
+    - **Utils (`Utils/`):** Utility scripts for data handling and evaluation:
+        - `eval_OOD.py`: Evaluates models on the OOD dataset.
+        - `tf_splitter.py`: Splits large datasets; set the `DATASET` variable on line 26 for each run. The split is 80/10/10, already reflected in the TFRecord files.
+        - `train_val_split.py`: Creates an 80/20 train/validation split.
+        - `tf_splitter.py`: Splits a single, pre-labeled dataset.
+- `Object_detection/`: Object detection scripts and configurations.
 - `dataomvormen_yolo.py`: Data transformation scripts for YOLO.
 - `Comparision/`: Contains scripts and models for comparing different YOLO and OOD approaches.
 - `documents/`: Project documentation and Gantt chart scripts.
 - `Improvements/object_detection1/`: Improved object detection scripts and federated learning models.
-- `MNIST/`: Scripts and data for MNIST experiments.
-- `Object_detect+utils/`: Centralized and federated learning scripts, configuration files, and utility functions.
-- `Object_detection/`: Object detection scripts and configurations.
 - `OOD.v1i.yolov5pytorch/`: OOD detection experiments with YOLOv5 in PyTorch.
-- `standalone/`: Standalone scripts and models for YOLO and CNN experiments.
+    - Files inlcuded in the file from Roboflow, not used
+- `standalone/`: Standalone scripts and models for YOLO and CNN experiments. Config files are often reused. 
+    - folder is not used in thesis, mainly ysed for experimentations. 
+
 
 ## Datasets
-- **MNIST Dataset:** [https://git-disl.github.io/GTDLBench/datasets/mnist_datasets/](https://git-disl.github.io/GTDLBench/datasets/mnist_datasets/)
+- **MNIST Dataset:** [https://git-disl.github.io/GTDLBench/datasets/mnist_datasets/](https://git-disl.github.io/GTDLBench/datasets/mnist_datasets/) - might be some pre-processing involved?
 - **Outdoor Obstacle Detection (OOD) Dataset:** [https://universe.roboflow.com/fpn/ood-pbnro](https://universe.roboflow.com/fpn/ood-pbnro)
 - **Visually Impaired (VI) Dataset:** [https://universe.roboflow.com/all-mix/visually-impaired-dataset](https://universe.roboflow.com/all-mix/visually-impaired-dataset)
+- [] TODO check datasets tomorrow.
+- File names should be the same in the config files, with what we see in roboflow. 
 
 ## Getting Started
 
@@ -64,6 +80,7 @@ This project develops a complete FL pipeline, including model design, client-ser
 - **Python Package Versions:** The repository's Python scripts do not specify exact package versions. On Jetson Nano DNN, scripts generally run without additional updates (except possibly NumPy) as of June 2025. On Windows 11, use the latest package versions via pip.
 - **Data Format:** The tf.record format is used for importing images from RoboFlow.
 - **Configuration Files:** Configuration files (e.g., `configX.py`) are imported as modules (e.g., `import configX as cfg`) in the main scripts. This allows flexible configuration management for different experiments.
+- Config files in each folder, are for the Python files in each folder. Make sure that they are located next to each other when importing it into it.
 
 ## Set up virtual environment
 It is recommended to use a virtual environment to ensure packages are installed correctly. This ensures the portability of the code across different machines. The `uv` package manager works well for this purpose, and is also suggested by the Marimo project. 
